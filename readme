@@ -207,3 +207,9 @@ Mas o README acima já dá o tom certo sem inflar o repo.
 
 
 
+
+## Roadmap detalhado
+
+- Veja `docs/ROADMAP_ECOMMERCE_ADMIN_PDF.md` para o plano completo de execução com ingestão de catálogo via PDF.
+
+- Veja também `docs/ROADMAP_ATOMICO_EPICOS_MODULOS.md` para o plano atômico por épico/módulo com micro tarefas de go-live.
