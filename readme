@@ -1,0 +1,209 @@
+# Marketplace (Laravel) — Admin Volt + Storefront
+
+Aplicação **Laravel** para um **marketplace** (multi-vendor) com:
+- **Admin/Backoffice** baseado no **Volt Free** (Bootstrap 5)
+- **Storefront (client-side)** responsivo e moderno (vitrine do marketplace)
+
+> Objetivo do MVP: entregar uma base sólida e evolutiva (padrão “Laravel way”), evitando overengineering e mantendo espaço para crescer para multi-tenant, split de comissão, repasses, disputas e integrações.
+
+---
+
+## Principais features (planejado)
+
+### Storefront (Cliente)
+- Catálogo com filtros e busca
+- Página de produto (variações, avaliações, perguntas)
+- Carrinho e checkout (MVP pode ser “checkout por link/whatsapp” ou “pedido pendente”)
+- Conta do cliente (pedidos, endereços, favoritos)
+
+### Admin / Seller
+- Painel administrativo (métricas, pedidos, produtos, clientes)
+- Painel do vendedor (produtos, pedidos, estoque, cupons)
+- Moderação (categorias, marcas, banners, vitrines)
+
+---
+
+## Stack
+
+**Backend**
+- PHP 8.2+ / Laravel 11+
+- MySQL (ou MariaDB)
+- Filas: database (MVP) → Redis (escala)
+- Cache: file (MVP) → Redis (escala)
+
+**Frontend**
+- Blade + Tailwind (storefront)
+- Volt Free (Bootstrap 5) para o Admin
+- Alpine.js para interatividade leve
+- Vite para build assets
+
+---
+
+## Regras do jogo (padrão do projeto)
+
+- **Sem “query spaghetti”**: preferir Eloquent + scopes + query objects quando necessário.
+- **Sem controllers gordos**: controllers finos, regras em Actions/Services.
+- **Validação sempre em Form Requests**.
+- **Autorização sempre em Policies/Gates** (não “if de permissão” espalhado).
+- **Respostas consistentes** (web/JSON) para padronizar Ajax e erros.
+- **UI consistente via Blade Components** (não copiar/colar HTML).
+
+---
+
+## Estrutura de pastas (proposta)
+app/
+Actions/ # Casos de uso (ex.: CreateOrder, PublishProduct)
+Domain/ # Regras de domínio (ValueObjects, DTOs, Services)
+Http/
+Controllers/
+Requests/
+Models/
+Policies/
+resources/
+views/
+admin/ # Volt layouts + páginas
+storefront/ # Vitrine (Tailwind)
+components/ # Blade components (shared)
+js/
+css/
+routes/
+web.php
+admin.php
+storefront.php
+
+
+> Se você for seguir essa estrutura, mantenha-a simples: só crie pastas quando existir código de verdade nelas.
+
+---
+
+## Requisitos
+
+- PHP 8.2+
+- Composer
+- Node 18+ (ou 20+)
+- MySQL/MariaDB
+
+---
+
+## Setup (local)
+
+1) Instale dependências:
+```bash
+composer install
+npm install
+Copie o .env e gere a key:
+
+cp .env.example .env
+php artisan key:generate
+Configure o banco no .env e rode:
+php artisan migrate --seed
+Suba o servidor e o Vite:
+php artisan serve
+npm run dev
+
+Comandos úteis
+php artisan test
+php artisan migrate:fresh --seed
+php artisan queue:work
+php artisan optimize:clear
+
+Ambiente e seeds
+
+Seeds criam dados mínimos para navegar no admin e na vitrine.
+
+Usuários padrão (quando aplicável):
+
+Admin: admin@local.test / password
+
+Seller: seller@local.test / password
+
+Se esses usuários não existirem ainda, é porque o seed do MVP ainda não foi implementado.
+
+Padrão de UI (importante)
+Admin (Volt)
+
+Layout e navegação em resources/views/admin/layouts/
+
+Componentes Blade para:
+
+cards, alerts, tables, empty states, breadcrumbs
+
+Evitar dependências legadas e plugins pesados quando possível.
+
+Storefront
+
+Componentizar ao máximo:
+
+x-product.card, x-price, x-rating, x-filter.sidebar, etc.
+
+Interações simples via Alpine (ex.: add-to-cart, quantity, filtros).
+
+Roadmap do MVP (enxuto e realista)
+
+Base
+
+Auth (admin/seller/customer)
+
+RBAC (roles/perms) + Policies
+
+Layouts (admin/storefront) + components essenciais
+
+Catálogo
+
+Categorias, produtos, imagens, preço
+
+Listagem + filtro + busca
+
+Pedido (MVP)
+
+Carrinho
+
+Criar pedido “pending”
+
+Status básico e histórico
+
+Seller
+
+CRUD produto
+
+Visualizar pedidos
+
+Contribuindo
+
+Use Conventional Commits:
+
+feat:, fix:, refactor:, chore:, test:, docs:
+
+PRs pequenos, com escopo claro.
+
+Sem “refatoração gratuita” no meio de feature (isso sempre vira débito técnico disfarçado).
+
+Licenças e créditos
+
+Volt Free: respeitar a licença e créditos conforme o template exige.
+
+Outros templates/ícones/libs: manter créditos/arquivos de licença quando aplicável.
+
+Segurança
+
+Nunca commitar .env
+
+Em produção, usar HTTPS, filas/cron configurados, storage adequado e rate limiting.
+
+Status
+
+🚧 Em construção — commit inicial (bootstrap do projeto).
+
+
+Se você quiser que isso fique com cara de “projeto sério de produto” (BigTech vibes), eu também criaria no commit inicial:
+- `CONTRIBUTING.md` com padrões de PR/branch/commit
+- `ARCHITECTURE.md` descrevendo módulos (Catalog/Orders/Users/Sellers)
+- `.editorconfig` + `pint.json` + CI básico (tests + pint)
+
+Mas o README acima já dá o tom certo sem inflar o repo.
+
+
+
+
+
+
