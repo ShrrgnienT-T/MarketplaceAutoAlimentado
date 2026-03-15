@@ -194,6 +194,17 @@ Status
 
 🚧 Em construção — commit inicial (bootstrap do projeto).
 
+## Planejamento prático (MVP + ingestão PDF)
+
+- Roadmap principal: `docs/ROADMAP_MVP_ECOMMERCE_ADMIN_PDF.md`
+- Quebra atômica por épicos/módulos: `docs/ROADMAP_ATOMICO_EPICOS_MODULOS.md`
+
+### Perguntas de gestão que não podem ser puladas
+
+- Qual taxa de erro de preço é aceitável antes de bloquear publicação automática?
+- Qual fornecedor será piloto para template v1 (e quem aprova qualidade dos dados)?
+- Quanto tempo máximo de revisão humana por batch ainda mantém operação rentável?
+
 
 Se você quiser que isso fique com cara de “projeto sério de produto” (BigTech vibes), eu também criaria no commit inicial:
 - `CONTRIBUTING.md` com padrões de PR/branch/commit
@@ -201,7 +212,6 @@ Se você quiser que isso fique com cara de “projeto sério de produto” (BigT
 - `.editorconfig` + `pint.json` + CI básico (tests + pint)
 
 Mas o README acima já dá o tom certo sem inflar o repo.
-
 
 
 
